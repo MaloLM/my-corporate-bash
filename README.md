@@ -1,5 +1,9 @@
 # My-corporate-bash
 
+[![release-version](https://img.shields.io/badge/Version-1.0.0-blue)]()
+[![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/MaloLM/my-corporate-bash/blob/main/LICENSE)
+[![language](https://img.shields.io/badge/Language-shell-blue)](https://en.wikipedia.org/wiki/Scripting_language)
+
 Display an ASCII format image at the start of your bash session.
 
 <demo>
@@ -51,10 +55,14 @@ mycorporatebash setup ./images.my_image.png -P 0.5 -C
 | -C         | Retains the original colors of the source image. If not used, the image will be displayed in white.                     |
 | -h, --help | Displays a help message.                                                                                                |
 
-## Test environment
+## Environments
 
 | Tested | OS     | Version       | Architecture |
 | ------ | ------ | ------------- | ------------ |
 | ✅     | macOS  | 15.0 (24A335) | aarch64      |
 | ❌     | Ubuntu | 20.04 LTS     | x86_64       |
 | ❌     | WSL    | Ubuntu 20.04  | x86_64       |
+
+## Troubleshooting
+
+- Using -C but nothing shows : check your terminal client supports 24bits or 8bits colors
