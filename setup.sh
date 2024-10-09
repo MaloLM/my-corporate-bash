@@ -1,22 +1,22 @@
 #!/bin/bash
 
 function clear_bash {
-    # Vérifie si un argument a été fourni
+    # Check input argument
     if [[ $# -ne 1 ]]; then
         echo "Usage : clear_bash <path_to_file>"
         exit 1
     fi
 
-    fichier="$1" # Utilise le premier argument comme chemin du fichier
+    fichier="$1"
     chaine="/Users/malo/.mycorporatebash/run.sh"
 
-    # Vérifie si le fichier existe et est lisible
+    # check if given file path exists
     if [[ ! -f "$fichier" || ! -r "$fichier" ]]; then
         echo "Erreur : le fichier '$fichier' n'existe pas ou n'est pas lisible."
         exit 1
     fi
 
-    # Vérifie à nouveau s'il y a d'autres occurrences
+    # Check occurences and delete them
     while grep -q "$chaine" "$fichier"; do
         temp_file=$(mktemp)
 

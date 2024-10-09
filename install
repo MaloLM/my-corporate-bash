@@ -19,26 +19,26 @@ if ! command -v ascii-image-converter &>/dev/null; then
 fi
 
 # Create the hidden directory if it doesn't already exist
-mkdir -p "$HOME"/.mycorporatebash/
+mkdir -p "$HOME"/.my-corporate-bash/
 
 # Copy the main script to /usr/local/bin
-cp ./mycorporatebash.sh /usr/local/bin/mycorporatebash
-cp ./run.sh "$HOME"/.mycorporatebash/run.sh
+cp ./my-corporate-bash.sh /usr/local/bin/my-corporate-bash
+cp ./run.sh "$HOME"/.my-corporate-bash/run.sh
 
-cp ./setup.sh "$HOME"/.mycorporatebash/setup.sh
-cp ./uninstall.sh "$HOME"/.mycorporatebash/uninstall.sh
-cp ./enable.sh "$HOME"/.mycorporatebash/enable.sh
-cp ./disable.sh "$HOME"/.mycorporatebash/disable.sh
+cp ./setup.sh "$HOME"/.my-corporate-bash/setup.sh
+cp ./uninstall.sh "$HOME"/.my-corporate-bash/uninstall.sh
+cp ./enable.sh "$HOME"/.my-corporate-bash/enable.sh
+cp ./disable.sh "$HOME"/.my-corporate-bash/disable.sh
 
 # Give execute permissions
-chmod +x /usr/local/bin/mycorporatebash
-chmod +x "$HOME"/.mycorporatebash/run.sh
-chmod +x "$HOME"/.mycorporatebash/setup.sh
-chmod +x "$HOME"/.mycorporatebash/uninstall.sh
-chmod +x "$HOME"/.mycorporatebash/enable.sh
-chmod +x "$HOME"/.mycorporatebash/disable.sh
+chmod +x /usr/local/bin/my-corporate-bash
+chmod +x "$HOME"/.my-corporate-bash/run.sh
+chmod +x "$HOME"/.my-corporate-bash/setup.sh
+chmod +x "$HOME"/.my-corporate-bash/uninstall.sh
+chmod +x "$HOME"/.my-corporate-bash/enable.sh
+chmod +x "$HOME"/.my-corporate-bash/disable.sh
 
 # Change the owner of the directory to the current user
-sudo chown -R "$SUDO_USER":staff "$HOME"/.mycorporatebash/
+sudo chown -R "$SUDO_USER":staff "$HOME"/.my-corporate-bash/
 
-echo "Installation completed. You can now use 'mycorporatebash'."
+echo "Installation completed. You can now use 'my-corporate-bash'."
