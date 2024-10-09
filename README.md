@@ -25,7 +25,7 @@ First, you will need to install following dependancy: [ascii-image-converter](ht
 ## Setup example
 
 ```shell
-mycorporatebash setup ./images.my_image.png -P 0.5 -C
+my-corporate-bash setup ./images.my_image.png -P 0.5 -C
 ```
 
 #### Approximate proportion width image filling

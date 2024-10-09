@@ -21,8 +21,8 @@ if command -v ascii-image-converter &>/dev/null; then
     elif [[ "$color" == "no" ]]; then
         ascii-image-converter "$image_path" -W "$target_width"
     else
-        echo "mycorporatebash failed displaying the init image. See more here: ~/.mycorporatebash/logs/"
+        echo "my-corporate-bash failed displaying the init image. See more here: ~/.my-corporate-bash/logs/"
     fi
 else
-    echo "mycorporatebash failed displaying the init image. See more here: ~/.mycorporatebash/logs/"
+    echo "my-corporate-bash failed displaying the init image. See more here: ~/.my-corporate-bash/logs/"
 fi

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function show_help {
-    echo "Usage: mycorporatebash [command]"
+    echo "Usage: my-corporate-bash [command]"
     echo ""
     echo "Commands:"
     echo "  setup [image] -P [proportion] -C [color]    Setup the image to display"
@@ -12,7 +12,7 @@ function show_help {
 }
 
 function help_setup {
-    echo "Usage: mycorporatebash setup image_path [options]"
+    echo "Usage: my-corporate-bash setup image_path [options]"
     echo "Set up the environment with necessary configurations."
     echo "Options:"
     echo "  -h, --help  Display help for setup."
@@ -21,35 +21,35 @@ function help_setup {
 }
 
 function help_disable {
-    echo "Usage: mycorporatebash disable"
+    echo "Usage: my-corporate-bash disable"
     echo "Disables (hide) the disaplaying of the setup image at bash session startup."
 }
 
 function help_enable {
-    echo "Usage: mycorporatebash enable"
+    echo "Usage: my-corporate-bash enable"
     echo "Enables the disaplaying of the setup image at bash session startup."
 }
 
 function help_uninstall {
-    echo "Usage: sudo mycorporatebash uninstall"
-    echo "Don't forget to sudo !"
+    echo "Usage: my-corporate-bash uninstall"
+    echo "Sudo privileges will be requested during proceed."
     echo "Uninstall the app from system."
 }
 
 function setup {
-    "$HOME"/.mycorporatebash/setup.sh "$@"
+    "$HOME"/.my-corporate-bash/setup.sh "$@"
 }
 
 function uninstall {
-    "$HOME"/.mycorporatebash/uninstall.sh
+    "$HOME"/.my-corporate-bash/uninstall.sh
 }
 
 function enable {
-    "$HOME"/.mycorporatebash/enable.sh
+    "$HOME"/.my-corporate-bash/enable.sh
 }
 
 function disable {
-    "$HOME"/.mycorporatebash/disable.sh
+    "$HOME"/.my-corporate-bash/disable.sh
 }
 
 COMMAND=$1

@@ -29,6 +29,7 @@ cp ./setup.sh "$HOME"/.my-corporate-bash/setup.sh
 cp ./uninstall.sh "$HOME"/.my-corporate-bash/uninstall.sh
 cp ./enable.sh "$HOME"/.my-corporate-bash/enable.sh
 cp ./disable.sh "$HOME"/.my-corporate-bash/disable.sh
+cp ./clear_bash.sh "$HOME"/.my-corporate-bash/clear_bash.sh
 
 # Give execute permissions
 chmod +x /usr/local/bin/my-corporate-bash
@@ -37,6 +38,7 @@ chmod +x "$HOME"/.my-corporate-bash/setup.sh
 chmod +x "$HOME"/.my-corporate-bash/uninstall.sh
 chmod +x "$HOME"/.my-corporate-bash/enable.sh
 chmod +x "$HOME"/.my-corporate-bash/disable.sh
+chmod +x "$HOME"/.my-corporate-bash/clear_bash.sh
 
 # Change the owner of the directory to the current user
 sudo chown -R "$SUDO_USER":staff "$HOME"/.my-corporate-bash/

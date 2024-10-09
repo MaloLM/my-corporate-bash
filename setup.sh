@@ -1,40 +1,10 @@
 #!/bin/bash
 
-function clear_bash {
-    # Check input argument
-    if [[ $# -ne 1 ]]; then
-        echo "Usage : clear_bash <path_to_file>"
-        exit 1
-    fi
-
-    fichier="$1"
-    chaine="/Users/malo/.mycorporatebash/run.sh"
-
-    # check if given file path exists
-    if [[ ! -f "$fichier" || ! -r "$fichier" ]]; then
-        echo "Erreur : le fichier '$fichier' n'existe pas ou n'est pas lisible."
-        exit 1
-    fi
-
-    # Check occurences and delete them
-    while grep -q "$chaine" "$fichier"; do
-        temp_file=$(mktemp)
-
-        while IFS= read -r ligne; do
-            if [[ "$ligne" != *"$chaine"* ]]; then
-                echo "$ligne" >>"$temp_file"
-            fi
-        done <"$fichier"
-
-        mv "$temp_file" "$fichier"
-    done
-}
-
 function finish_setup {
     # Build the line to be added to the profile file
-    run_command="$HOME/.mycorporatebash/run.sh ~/.mycorporatebash/base_image.${image_path##*.} $proportion $color"
+    run_command="$HOME/.my-corporate-bash/run.sh ~/.my-corporate-bash/base_image.${image_path##*.} $proportion $color"
 
-    clear_bash $profile_file
+    "$HOME"/.my-corporate-bash/clear_bash.sh $profile_file
 
     # Add the new line to the end of the profile file
     echo "$run_command" >>"$profile_file"
@@ -55,7 +25,8 @@ function get_profile_file {
     elif [[ "$shell_name" == "zsh" ]]; then
         profile_file=~/.zshrc
     else
-        echo "Unsupported shell: $shell_name. Please manually add ~/.mycorporatebash/run.sh to your shell profile."
+        echo "Unsupported shell: $shell_name."
+        echo "Please manually add ~/.my-corporate-bash/run.sh to your shell profile."
         exit 1
     fi
 
@@ -71,11 +42,12 @@ function save_bash_profile {
     # Create the new filename
     new_file_name="${base_name}_copy"
 
-    # Make a copy of the profile file in the ~/.mycorporatebash/ directory with the new name
-    cp "$profile_file" "$HOME/.mycorporatebash/$new_file_name"
+    # Make a copy of the profile file in the ~/.my-corporate-bash/ directory with the new name
+    cp "$profile_file" "$HOME/.my-corporate-bash/$new_file_name"
 
     printf '\n'
-    echo "Backup of $profile_file saved to $HOME/.mycorporatebash/$new_file_name"
+    echo "Backup of $profile_file saved to $HOME/.my-corporate-bash/$new_file_name"
+    printf '\n'
 }
 
 # Check the arguments
@@ -147,28 +119,30 @@ fi
 # Backup the bash profile
 save_bash_profile
 
-# Copy the image to ~/.mycorporatebash/ with a fixed name
-mkdir -p "$HOME"/.mycorporatebash/
-cp "$image_path" "$HOME"/.mycorporatebash/base_image."${image_path##*.}"
+# Copy the image to ~/.my-corporate-bash/ with a fixed name
+mkdir -p "$HOME"/.my-corporate-bash/
+cp "$image_path" "$HOME"/.my-corporate-bash/base_image."${image_path##*.}"
 
 # Determine the bash/zsh profile file
-shell_name=$(basename "$SHELL")
+# shell_name=$(basename "$SHELL")
 
-if [[ "$shell_name" == "bash" ]]; then
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        profile_file=~/.bash_profile
-    else
-        profile_file=~/.bashrc
-    fi
-elif [[ "$shell_name" == "zsh" ]]; then
-    profile_file=~/.zshrc
-else
-    echo "Unsupported shell: $shell_name. Please manually add ~/.mycorporatebash/run.sh to your shell profile."
-    exit 1
-fi
+# if [[ "$shell_name" == "bash" ]]; then
+#     if [[ "$OSTYPE" == "darwin"* ]]; then
+#         profile_file=~/.bash_profile
+#     else
+#         profile_file=~/.bashrc
+#     fi
+# elif [[ "$shell_name" == "zsh" ]]; then
+#     profile_file=~/.zshrc
+# else
+#     echo "Unsupported shell: $shell_name. Please manually add ~/.my-corporate-bash/run.sh to your shell profile."
+#     exit 1
+# fi
 
-# Test
-"$HOME"/.mycorporatebash/run.sh ~/.mycorporatebash/base_image."${image_path##*.}" "$proportion" $color
+profile_file=$(get_profile_file)
+
+# Test and ask the user for result satisfaction
+"$HOME"/.my-corporate-bash/run.sh ~/.my-corporate-bash/base_image."${image_path##*.}" "$proportion" $color
 
 printf "\n"
 read -r -p "Are you satisfyed with this displaying? (y/n): " confirm
