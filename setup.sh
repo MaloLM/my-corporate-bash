@@ -1,22 +1,45 @@
 #!/bin/bash
 
+function clear_bash {
+    # Vérifie si un argument a été fourni
+    if [[ $# -ne 1 ]]; then
+        echo "Usage : clear_bash <path_to_file>"
+        exit 1
+    fi
+
+    fichier="$1" # Utilise le premier argument comme chemin du fichier
+    chaine="/Users/malo/.mycorporatebash/run.sh"
+
+    # Vérifie si le fichier existe et est lisible
+    if [[ ! -f "$fichier" || ! -r "$fichier" ]]; then
+        echo "Erreur : le fichier '$fichier' n'existe pas ou n'est pas lisible."
+        exit 1
+    fi
+
+    # Vérifie à nouveau s'il y a d'autres occurrences
+    while grep -q "$chaine" "$fichier"; do
+        temp_file=$(mktemp)
+
+        while IFS= read -r ligne; do
+            if [[ "$ligne" != *"$chaine"* ]]; then
+                echo "$ligne" >>"$temp_file"
+            fi
+        done <"$fichier"
+
+        mv "$temp_file" "$fichier"
+    done
+}
+
 function finish_setup {
     # Build the line to be added to the profile file
     run_command="$HOME/.mycorporatebash/run.sh ~/.mycorporatebash/base_image.${image_path##*.} $proportion $color"
 
-    # Check if the command already exists in the profile file
-    if grep -q "^$HOME/.mycorporatebash/run.sh" "$profile_file"; then
-        # The command already exists, remove it and add the new command
-        # sed -i '' "/^$HOME\/.mycorporatebash\/run.sh/d" "$profile_file"
-        # sed -i '' "#^$HOME/.mycorporatebash/run.sh#d" "$profile_file"
-        sed -n '' "/^$HOME\/.mycorporatebash\/run.sh.*/d" "$profile_file"
+    clear_bash $profile_file
 
-    fi
     # Add the new line to the end of the profile file
     echo "$run_command" >>"$profile_file"
 
     printf "Setup completed. Please restart your terminal session or run 'source %s' to apply changes.\n" "$profile_file"
-
 }
 
 function get_profile_file {
