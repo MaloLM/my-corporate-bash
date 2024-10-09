@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Check if the script is run with sudo
+if [ "$EUID" -ne 0 ]; then
+    echo "#############################################"
+    echo "# Please run this script with sudo.         #"
+    echo "# Example: sudo bash ./install              #"
+    echo "#############################################"
+    printf "\n\n"
+    exit 1
+fi
+
+# Check if ascii-image-converter is installed
+repo_url="https://github.com/TheZoraiz/ascii-image-converter"
+if ! command -v ascii-image-converter &>/dev/null; then
+    echo "ascii-image-converter could not be found. Please install it first."
+    printf "\e[4m%s\e[0m" "$repo_url" # underlined
+    exit 1
+fi
+
+# Create the hidden directory if it doesn't already exist
+mkdir -p "$HOME"/.mycorporatebash/
+
+# Copy the main script to /usr/local/bin
+cp ./mycorporatebash.sh /usr/local/bin/mycorporatebash
+cp ./run.sh "$HOME"/.mycorporatebash/run.sh
+
+cp ./setup.sh "$HOME"/.mycorporatebash/setup.sh
+cp ./uninstall.sh "$HOME"/.mycorporatebash/uninstall.sh
+cp ./enable.sh "$HOME"/.mycorporatebash/enable.sh
+cp ./disable.sh "$HOME"/.mycorporatebash/disable.sh
+
+# Give execute permissions
+chmod +x /usr/local/bin/mycorporatebash
+chmod +x "$HOME"/.mycorporatebash/run.sh
+chmod +x "$HOME"/.mycorporatebash/setup.sh
+chmod +x "$HOME"/.mycorporatebash/uninstall.sh
+chmod +x "$HOME"/.mycorporatebash/enable.sh
+chmod +x "$HOME"/.mycorporatebash/disable.sh
+
+# Change the owner of the directory to the current user
+sudo chown -R "$SUDO_USER":staff "$HOME"/.mycorporatebash/
+
+echo "Installation completed. You can now use 'mycorporatebash'."
