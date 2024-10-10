@@ -14,35 +14,63 @@ fi
 repo_url="https://github.com/TheZoraiz/ascii-image-converter"
 if ! command -v ascii-image-converter &>/dev/null; then
     echo "ascii-image-converter could not be found. Please install it first."
-    printf "\e[4m%s\e[0m" "$repo_url" # underlined
+    printf "\e[4m%s\e[0m\n" "$repo_url" # underlined
     exit 1
 fi
 
 # Create the hidden directory if it doesn't already exist
 mkdir -p "$HOME"/.my-corporate-bash/
 
+# Copy all scripts from the ./scripts directory to $HOME/.my-corporate-bash/
+for script in ./scripts/*; do
+    cp "$script" "$HOME"/.my-corporate-bash/
+done
+
 # Copy the main script to /usr/local/bin
 cp ./my-corporate-bash.sh /usr/local/bin/my-corporate-bash
-cp ./run.sh "$HOME"/.my-corporate-bash/run.sh
 
-cp ./setup.sh "$HOME"/.my-corporate-bash/setup.sh
-cp ./uninstall.sh "$HOME"/.my-corporate-bash/uninstall.sh
-cp ./enable.sh "$HOME"/.my-corporate-bash/enable.sh
-cp ./disable.sh "$HOME"/.my-corporate-bash/disable.sh
-cp ./clear_bash.sh "$HOME"/.my-corporate-bash/clear_bash.sh
-cp ./get_profile.sh "$HOME"/.my-corporate-bash/get_profile.sh
-
-# Give execute permissions
+# Give execute permissions to the main script
 chmod +x /usr/local/bin/my-corporate-bash
-chmod +x "$HOME"/.my-corporate-bash/run.sh
-chmod +x "$HOME"/.my-corporate-bash/setup.sh
-chmod +x "$HOME"/.my-corporate-bash/uninstall.sh
-chmod +x "$HOME"/.my-corporate-bash/enable.sh
-chmod +x "$HOME"/.my-corporate-bash/disable.sh
-chmod +x "$HOME"/.my-corporate-bash/clear_bash.sh
-chmod +x "$HOME"/.my-corporate-bash/get_profile.sh
+
+# Give execute permissions to all scripts in $HOME/.my-corporate-bash/
+find "$HOME"/.my-corporate-bash/ -type f -exec chmod +x {} \;
 
 # Change the owner of the directory to the current user
 sudo chown -R "$SUDO_USER":staff "$HOME"/.my-corporate-bash/
 
-echo "Installation completed. You can now use 'my-corporate-bash'."
+# Verification phase
+echo "Verifying installation..."
+
+# Check if the main script exists and is executable
+if [ -x /usr/local/bin/my-corporate-bash ]; then
+    echo "Main script is correctly installed and executable."
+else
+    echo "Error: Main script is not installed or not executable."
+    exit 1
+fi
+
+# Check if the hidden directory exists
+if [ -d "$HOME/.my-corporate-bash" ]; then
+    echo "Hidden directory is correctly created."
+else
+    echo "Error: Hidden directory is not created."
+    exit 1
+fi
+
+# Check if all scripts are executable
+all_executable=true
+for script in "$HOME/.my-corporate-bash/"*; do
+    if [ ! -x "$script" ]; then
+        echo "Error: Script '$script' is not executable."
+        all_executable=false
+    fi
+done
+
+if [ "$all_executable" = true ]; then
+    echo "All scripts are executable."
+else
+    exit 1
+fi
+
+# Installation verification completed
+echo "Installation completed successfully. You can now use 'my-corporate-bash'."
