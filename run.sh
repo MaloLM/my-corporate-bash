@@ -16,9 +16,9 @@ terminal_width=$(tput cols)
 target_width=$(echo "scale=0; $terminal_width * $proportion / 1" | bc)
 
 if command -v ascii-image-converter &>/dev/null; then
-    if [[ "$color" == "yes" ]]; then
+    if [[ "$color" == "true" ]]; then
         ascii-image-converter "$image_path" -W "$target_width" -C
-    elif [[ "$color" == "no" ]]; then
+    elif [[ "$color" == "false" ]]; then
         ascii-image-converter "$image_path" -W "$target_width"
     else
         echo "my-corporate-bash failed displaying the init image. See more here: ~/.my-corporate-bash/logs/"

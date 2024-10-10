@@ -45,7 +45,6 @@ function save_bash_profile {
     # Make a copy of the profile file in the ~/.my-corporate-bash/ directory with the new name
     cp "$profile_file" "$HOME/.my-corporate-bash/$new_file_name"
 
-    printf '\n'
     echo "Backup of $profile_file saved to $HOME/.my-corporate-bash/$new_file_name"
     printf '\n'
 }
@@ -53,7 +52,7 @@ function save_bash_profile {
 # Check the arguments
 image_path=""
 proportion="0.95" # Default value
-color="no"        # Default value for when no color is passed
+color="false"     # Default value for when no color is passed
 
 # Parse the arguments
 while [[ "$#" -gt 0 ]]; do
@@ -68,7 +67,7 @@ while [[ "$#" -gt 0 ]]; do
         fi
         ;;
     -C)
-        color="yes"
+        color="true"
         # If the next argument is not empty and is not a flag, skip it
         if [[ -n "$2" && ! "$2" =~ ^- ]]; then
             shift 2
@@ -122,22 +121,6 @@ save_bash_profile
 # Copy the image to ~/.my-corporate-bash/ with a fixed name
 mkdir -p "$HOME"/.my-corporate-bash/
 cp "$image_path" "$HOME"/.my-corporate-bash/base_image."${image_path##*.}"
-
-# Determine the bash/zsh profile file
-# shell_name=$(basename "$SHELL")
-
-# if [[ "$shell_name" == "bash" ]]; then
-#     if [[ "$OSTYPE" == "darwin"* ]]; then
-#         profile_file=~/.bash_profile
-#     else
-#         profile_file=~/.bashrc
-#     fi
-# elif [[ "$shell_name" == "zsh" ]]; then
-#     profile_file=~/.zshrc
-# else
-#     echo "Unsupported shell: $shell_name. Please manually add ~/.my-corporate-bash/run.sh to your shell profile."
-#     exit 1
-# fi
 
 profile_file=$(get_profile_file)
 
