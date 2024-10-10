@@ -7,8 +7,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 profile_file="$1"
-printf "AHHHHHHHH %s \n" "$profile_file"
-chaine="/Users/malo/.my-corporate-bash/run.sh"
+chaine="$HOME/.my-corporate-bash/run.sh"
 
 # Check if given file path exists
 if [[ ! -f "$profile_file" || ! -r "$profile_file" ]]; then

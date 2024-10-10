@@ -6,7 +6,7 @@ read -r -p "Are you sure? (y/n): " confirm
 confirm=$(echo "$confirm" | tr '[:upper:]' '[:lower:]') # to lowercase
 
 # Get current shell user
-USER_SHELL=$(echo "$SHELL")
+USER_SHELL=$(echo $SHELL)
 
 # Determine which bash profile file based on current shell
 case "$USER_SHELL" in

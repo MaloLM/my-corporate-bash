@@ -12,15 +12,27 @@ Display an ASCII format image at the start of your bash session.
 
 ## Install
 
-Go to the repository root
+Go to the repository root to execute bellow command:
 
 ```shell
 sudo bash install
 ```
 
-#### Requirements
+### ⚠️ Requirements ⚠️
 
-First, you will need to install following dependancy: [ascii-image-converter](https://github.com/TheZoraiz/ascii-image-converter)
+You will need to install following dependancy: [ascii-image-converter](https://github.com/TheZoraiz/ascii-image-converter)
+
+#### Homebrew
+
+Installation with homebrew is available for both Linux and macOS.
+
+```
+brew install TheZoraiz/ascii-image-converter/ascii-image-converter
+```
+
+Check the other installation approaches in the dependency directory.
+
+<hr>
 
 ## Setup example
 
