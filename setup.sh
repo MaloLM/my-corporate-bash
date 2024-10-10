@@ -12,29 +12,8 @@ function finish_setup {
     printf "Setup completed. Please restart your terminal session or run 'source %s' to apply changes.\n" "$profile_file"
 }
 
-function get_profile_file {
-    local shell_name=$(basename "$SHELL")
-    local profile_file
-
-    if [[ "$shell_name" == "bash" ]]; then
-        if [[ "$OSTYPE" == "darwin"* ]]; then
-            profile_file=~/.bash_profile
-        else
-            profile_file=~/.bashrc
-        fi
-    elif [[ "$shell_name" == "zsh" ]]; then
-        profile_file=~/.zshrc
-    else
-        echo "Unsupported shell: $shell_name."
-        echo "Please manually add ~/.my-corporate-bash/run.sh to your shell profile."
-        exit 1
-    fi
-
-    echo "$profile_file" # Return the path of the profile file
-}
-
 function save_bash_profile {
-    profile_file=$(get_profile_file)
+    profile_file=$("$HOME/.my-corporate-bash/get_profile.sh")
 
     # Get the filename without the path
     base_name=$(basename "$profile_file")
@@ -122,7 +101,7 @@ save_bash_profile
 mkdir -p "$HOME"/.my-corporate-bash/
 cp "$image_path" "$HOME"/.my-corporate-bash/base_image."${image_path##*.}"
 
-profile_file=$(get_profile_file)
+profile_file=$("$HOME/.my-corporate-bash/get_profile.sh")
 
 # Test and ask the user for result satisfaction
 "$HOME"/.my-corporate-bash/run.sh ~/.my-corporate-bash/base_image."${image_path##*.}" "$proportion" $color
